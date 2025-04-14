@@ -5,7 +5,11 @@ from datetime import datetime
 from types import TracebackType
 from typing import ClassVar
 
-from pydantic import BaseModel, Field
+import pydantic
+if pydantic.VERSION.startswith('1.'):
+    from pydantic import BaseModel
+else:
+    from pydantic.v1 import BaseModel
 
 from limiters import MaxSleepExceededError
 from limiters.base import AsyncLuaScriptBase, SyncLuaScriptBase

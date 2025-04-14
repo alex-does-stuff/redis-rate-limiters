@@ -5,7 +5,13 @@ from datetime import datetime
 from uuid import uuid4
 
 import pytest
-from pydantic import ValidationError
+
+import pydantic
+if pydantic.VERSION.startswith('1.'):
+    from pydantic import ValidationError
+else:
+    from pydantic.v1 import ValidationError
+
 from redis.asyncio.client import Monitor, Redis
 
 from limiters import AsyncSemaphore, MaxSleepExceededError
